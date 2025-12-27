@@ -1,7 +1,6 @@
 package user
 
 import (
-	"fmt"
 	"go-fiber-app/pkg/response"
 
 	"github.com/gofiber/fiber/v2"
@@ -30,8 +29,6 @@ func (c *Controller) create(ctx *fiber.Ctx) error {
 
 func (c *Controller) getAll(ctx *fiber.Ctx) error {
 	users, err := c.service.GetAllUsers()
-	// fmt.Printf("users: %+v\n", users)
-	fmt.Printf("err: %v\n", err)
 	
 	if err != nil {
 		return ctx.Status(fiber.StatusInternalServerError).JSON(response.ErrorResponse("Failed to fetch users", err.Error()))

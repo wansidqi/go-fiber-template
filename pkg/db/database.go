@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"go-fiber-app/config"
 
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jmoiron/sqlx"
 )
 
-var DB *gorm.DB
+var DB *sqlx.DB
 
-func GetDB() *gorm.DB {
+func GetDB() *sqlx.DB {
 	return DB
 }
 
@@ -23,8 +23,13 @@ func InitDB(cfg *config.Config) error {
 		cfg.DBName,
 	)
 
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db, err := sqlx.Open("mysql", dsn)
 	if err != nil {
+		return err
+	}
+
+	// Test the connection
+	if err := db.Ping(); err != nil {
 		return err
 	}
 

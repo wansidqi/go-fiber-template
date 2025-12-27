@@ -1,12 +1,15 @@
 package user
 
-import "gorm.io/gorm"
+import "time"
 
 type User struct {
-	gorm.Model
-	Username string `json:"username" gorm:"uniqueIndex"`
-	Email    string `json:"email" gorm:"uniqueIndex"`
-	Password string `json:"-" gorm:"not null"`
+	ID        int        `db:"id" json:"id"`
+	Username  string     `db:"username" json:"username"`
+	Email     string     `db:"email" json:"email"`
+	Password  string     `db:"password" json:"-"`
+	CreatedAt time.Time  `db:"created_at" json:"created_at"`
+	UpdatedAt time.Time  `db:"updated_at" json:"updated_at"`
+	DeletedAt *time.Time `db:"deleted_at" json:"deleted_at,omitempty"`
 }
 
 type UserServiceInterface interface {
