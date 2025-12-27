@@ -30,7 +30,7 @@ func (c *Controller) create(ctx *fiber.Ctx) error {
 
 func (c *Controller) getAll(ctx *fiber.Ctx) error {
 	users, err := c.service.GetAllUsers()
-	fmt.Printf("users: %+v\n", users)
+	// fmt.Printf("users: %+v\n", users)
 	fmt.Printf("err: %v\n", err)
 	
 	if err != nil {
