@@ -10,6 +10,10 @@ import (
 
 var DB *gorm.DB
 
+func GetDB() *gorm.DB {
+	return DB
+}
+
 func InitDB(cfg *config.Config) error {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		cfg.DBUser,
