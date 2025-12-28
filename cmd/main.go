@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"go-fiber-app/config"
 	"go-fiber-app/internal/router"
 	"go-fiber-app/pkg/db"
@@ -28,6 +30,11 @@ func main() {
 	// Create Fiber app
 	app := fiber.New(fiber.Config{
 		AppName: "Go Fiber App",
+		JSONDecoder: func(data []byte, v any) error {
+			dec := json.NewDecoder(bytes.NewReader(data))
+			dec.DisallowUnknownFields()
+			return dec.Decode(v)
+		},
 	})
 
 	// Setup routes
